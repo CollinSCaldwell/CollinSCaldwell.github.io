@@ -1,0 +1,76 @@
+
+body {
+  background-color: #984447;
+  transition-duration: .5s;
+}
+
+ /* The side navigation menu */
+ .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 1%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    display:flex;
+    flex-direction: column;
+    background-color: #253031; /* Black*/
+    overflow-x: hidden; 
+    padding-top: 1%; 
+    transition: 0.5s; 
+  }
+
+
+
+  .sidenav:hover {
+    height: 100%; /* 100% Full-height */
+    width: 25%; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    display:flex;
+    flex-direction: column;
+    background-color: #253031; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+
+
+  
+  /* The navigation menu links */
+  .sidenav a {
+    margin-left: 10%;
+    margin-bottom: 5%;
+    transition-duration: .1s;
+    padding: 5% 5% 5% 10%;
+    text-decoration: none;
+    font-size: 200%;
+    color: #C1B2AB;
+    display: block;
+    transition: 0.3s;
+    transform: translateX(-4em);
+  }
+  
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    transition-delay: .1s;
+    transition-duration: .5s;
+    color: #E5DFDC;
+  }
+
+
+
+.sidenav:hover a{
+  
+  transform: translateX(0%);
+}
+  
+
+  #main {
+    transition: .5s;
+    padding: 20px;
+  }
+  
