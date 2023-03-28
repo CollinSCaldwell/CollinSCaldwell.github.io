@@ -1,49 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="index.css">
-<script src="index.js"></script>
+<html lang="en" onmousemove="mousemove(event)" >
+
+<script>
+    offsetX = 0;
+    offsetY = 0;
+
+    function mousedown(ev){
+        
+        offsetX = ev.clientX - ev.target.offsetLeft;
+        offsetY = ev.clientY - ev.target.offsetTop;
+        ev.target.classList.add("dragging");
+    }
+
+    function mouseup(ev){
+        ev.target.classList.remove("dragging");
+    }
 
 
-<title>Collin's Portfolio</title>
+    function mousemove(ev){
+        var targetObject = document.querySelector(".dragging")
+        if(targetObject != null){
+            newX = ev.clientX - offsetX;
+            newY = ev.clientY - offsetY;
+
+            if(newX >= 0 && newX + targetObject.offsetWidth <= window.innerWidth){
+                targetObject.style.left = (ev.clientX- offsetX) + "px";
+            }
+            if(newY >= 0 && newY + targetObject.offsetHeight <= window.innerHeight){
+                
+                targetObject.style.top = (ev.clientY- offsetY) + "px";
+            }
+        }
+    }
 
 
-<body>
-
-    <div id="ResumeMap" class="Resume">
-        <picture class="Resume">
-            <a id="Indicator">></a>
-            <img  class="ResumeImg" src="Collin Caldwell Resume.png" alt="">
-        </picture>
-    </div>
     
-    <div id="main" onscroll="scrollingFunction()">
-        <div id="ABOUT" class="about"> 
-            <h1 class="about header">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis, blanditiis?
-            </h1>
-            <p class="about section">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae dolore, minus exercitationem aut totam optio beatae at a sunt, assumenda voluptas quis esse enim, et ipsam autem sapiente accusantium soluta. Dolorum, voluptatum corporis maiores id, quia aperiam iste neque officia quo soluta impedit ipsum vero rem perspiciatis asperiores quibusdam minima nam facilis maxime hic blanditiis repellat natus! Est distinctio fuga nam corporis fugit? Ea voluptates, rem temporibus consequatur saepe, illo omnis magni assumenda sapiente, fuga explicabo! Esse ratione a mollitia incidunt ut quia cumque sint, distinctio rerum recusandae pariatur excepturi voluptatibus, consequuntur sed laudantium est officia? Facere, similique. Aperiam, voluptatem.
-            </p>
-        </div>
-        
-        <div id="PROJECTS" class="projects"> 
-            <ul>
-                <li class="projects 1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, eaque veritatis. Voluptas facilis odit exercitationem amet nisi? Consectetur ipsum, impedit amet hic magnam quod eum illo vero facere! Distinctio ipsam animi quia rem modi ratione, dolorum molestias, reprehenderit laboriosam deserunt facere magnam aspernatur ullam maxime quisquam repudiandae officia laudantium esse iusto saepe minus et nam. Nostrum maxime debitis asperiores sit ut dolores quisquam, hic ea tenetur, eveniet velit atque amet molestiae quae corrupti harum est. Quos praesentium laborum, itaque modi quam excepturi vero, provident, fugiat voluptate eaque rerum aspernatur blanditiis nobis! Sequi vitae quas voluptate quam illo, voluptates iure eveniet!</li>
-                <li class="projects 2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, eaque veritatis. Voluptas facilis odit exercitationem amet nisi? Consectetur ipsum, impedit amet hic magnam quod eum illo vero facere! Distinctio ipsam animi quia rem modi ratione, dolorum molestias, reprehenderit laboriosam deserunt facere magnam aspernatur ullam maxime quisquam repudiandae officia laudantium esse iusto saepe minus et nam. Nostrum maxime debitis asperiores sit ut dolores quisquam, hic ea tenetur, eveniet velit atque amet molestiae quae corrupti harum est. Quos praesentium laborum, itaque modi quam excepturi vero, provident, fugiat voluptate eaque rerum aspernatur blanditiis nobis! Sequi vitae quas voluptate quam illo, voluptates iure eveniet!</li>
-                <li class="projects 3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, eaque veritatis. Voluptas facilis odit exercitationem amet nisi? Consectetur ipsum, impedit amet hic magnam quod eum illo vero facere! Distinctio ipsam animi quia rem modi ratione, dolorum molestias, reprehenderit laboriosam deserunt facere magnam aspernatur ullam maxime quisquam repudiandae officia laudantium esse iusto saepe minus et nam. Nostrum maxime debitis asperiores sit ut dolores quisquam, hic ea tenetur, eveniet velit atque amet molestiae quae corrupti harum est. Quos praesentium laborum, itaque modi quam excepturi vero, provident, fugiat voluptate eaque rerum aspernatur blanditiis nobis! Sequi vitae quas voluptate quam illo, voluptates iure eveniet!</li>
-                <li class="projects 4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, eaque veritatis. Voluptas facilis odit exercitationem amet nisi? Consectetur ipsum, impedit amet hic magnam quod eum illo vero facere! Distinctio ipsam animi quia rem modi ratione, dolorum molestias, reprehenderit laboriosam deserunt facere magnam aspernatur ullam maxime quisquam repudiandae officia laudantium esse iusto saepe minus et nam. Nostrum maxime debitis asperiores sit ut dolores quisquam, hic ea tenetur, eveniet velit atque amet molestiae quae corrupti harum est. Quos praesentium laborum, itaque modi quam excepturi vero, provident, fugiat voluptate eaque rerum aspernatur blanditiis nobis! Sequi vitae quas voluptate quam illo, voluptates iure eveniet!</li>
-                <li class="projects 5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, eaque veritatis. Voluptas facilis odit exercitationem amet nisi? Consectetur ipsum, impedit amet hic magnam quod eum illo vero facere! Distinctio ipsam animi quia rem modi ratione, dolorum molestias, reprehenderit laboriosam deserunt facere magnam aspernatur ullam maxime quisquam repudiandae officia laudantium esse iusto saepe minus et nam. Nostrum maxime debitis asperiores sit ut dolores quisquam, hic ea tenetur, eveniet velit atque amet molestiae quae corrupti harum est. Quos praesentium laborum, itaque modi quam excepturi vero, provident, fugiat voluptate eaque rerum aspernatur blanditiis nobis! Sequi vitae quas voluptate quam illo, voluptates iure eveniet!</li>
-            </ul>
-        </div>
-        
-        <div id="CONTACT" class="contact"> 
-            <li class="contact email">Email</li>
-            <li class="contact linkedin">Linkedin</li>
-            <li class="contact github">Github</li>
-        </div>
-    </div>
-    <div style="margin:0%">
+    
+</script>
 
+<link rel="stylesheet" href="index.css">
+
+
+<title >Collin's Portfolio</title>
+
+
+<body >
+    <div id="Main-Page" >
+        <div class="Tab Tab-Container Not-Selectable"  onmousedown="mousedown(event)" onmouseup="mouseup(event)">
+            tab-container
+            <div class="Tab Tab-Header">
+                tab-header
+            </div>
+            <div class="Tab Tab-Body">
+                tab-body
+            </div>
+
+        </div>
     </div>
 
 </body>

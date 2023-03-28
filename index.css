@@ -2,104 +2,29 @@
 body {
   background-color: #984447;
   transition-duration: .5s;
+  font-size: 200%;
 }
 
+.Not-Selectable{
 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.Tab{
+  background-color: aqua;
+}
 
+.Tab-Container{
 
-.Resume{
+  background-color: blue;
   position:fixed;
-  min-width: 1%;
-  max-width: 10%;
-  height: auto;
-  top: 1%;
-  right: 0%;
-  transition-duration: 1s;
-}
-
-
-
-
-#ResumeMap .ResumeImg{
-  right:-5%;
-  max-width: 70%;
-  position: relative;
-  height: auto;
-  border-radius: 10%;
-  border-style: solid;
-  border-color: #253031;
-  transition-duration: .5s;
-}
-
-
-
-
-#ResumeMap .Resume:hover .ResumeImg{
-  right:270%;
-  max-width: 350%;
-  height: auto;
-  border-radius: 2%;
-  border-color: #253031;
-  transition-duration: .5s;
-}
-
-
-
-
-
-#ResumeMap .Resume #Indicator{
-  right:100%;
-  position: absolute;
-  display: inline-block;
-  height: auto;
-  border-radius: 10%;
-  border-style: solid;
-  border-color: #253031;
-  background-color: #253031;
-  color: #C1B2AB;
-  z-index: 10;
-  transition-duration: .5s;
-}
-
-
-
-#ResumeMap .Resume:hover #Indicator{
-  right:380%;
-  height: auto;
-  display: inline-block;
-  border-radius: 2%;
-  transition-duration: .5s;
-  font-size: 300%;
-}
-
-
-
-
-
-
-
-
   
-
-#main {
-  transition: .5s;
-  padding: 20px;
-  align-self: center;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 50%;
+  min-height: 5%;
+  min-width: 5%;
+  left:10%;
   
-}
-
-
-#main div{
-  margin-top: 10%;
-  margin-bottom: 50%;
-  padding-top: 15;
-}
-
-
-#PROJECTS ul{
-  list-style: none;
-  padding-left: 0%;
 }
