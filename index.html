@@ -1,42 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" onmousemove="mousemove(event)" >
 
-<script>
-    offsetX = 0;
-    offsetY = 0;
-
-    function mousedown(ev){
-        
-        offsetX = ev.clientX - ev.target.offsetLeft;
-        offsetY = ev.clientY - ev.target.offsetTop;
-        ev.target.classList.add("dragging");
-    }
-
-    function mouseup(ev){
-        ev.target.classList.remove("dragging");
-    }
-
-
-    function mousemove(ev){
-        var targetObject = document.querySelector(".dragging")
-        if(targetObject != null){
-            newX = ev.clientX - offsetX;
-            newY = ev.clientY - offsetY;
-
-            if(newX >= 0 && newX + targetObject.offsetWidth <= window.innerWidth){
-                targetObject.style.left = (ev.clientX- offsetX) + "px";
-            }
-            if(newY >= 0 && newY + targetObject.offsetHeight <= window.innerHeight){
-                
-                targetObject.style.top = (ev.clientY- offsetY) + "px";
-            }
-        }
-    }
-
-
-    
-    
-</script>
 
 <link rel="stylesheet" href="index.css">
 
@@ -45,19 +9,16 @@
 
 
 <body >
-    <div id="Main-Page" >
-        <div class="Tab Tab-Container Not-Selectable"  onmousedown="mousedown(event)" onmouseup="mouseup(event)">
-            tab-container
-            <div class="Tab Tab-Header">
-                tab-header
-            </div>
-            <div class="Tab Tab-Body">
-                tab-body
-            </div>
+    
+    <div class="Main-Page" >
+        <button style="font:300%;" onmousedown="makeNewTab(event)">Button</button>
+        
 
-        </div>
+       
     </div>
 
 </body>
 
+<script src="index.js"></script> 
 </html>
+
