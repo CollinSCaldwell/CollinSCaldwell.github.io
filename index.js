@@ -43,7 +43,7 @@
         var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
         ev.target.closest(".Tab-Container").style.zIndex = windows.length
         windows.forEach(element =>{
-            if(element.tabContainer.style.zIndex >= parseInt(oldzIndex)){
+            if(parseInt(element.tabContainer.style.zIndex) >= parseInt(oldzIndex)){
                 element.tabContainer.style.zIndex = element.tabContainer.style.zIndex - 1
             }
             element.tabContainer.classList.remove("Active-Tab")
