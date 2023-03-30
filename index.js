@@ -3,7 +3,6 @@
     class Tab{
         constructor(zindex, startX, startY, startWidth, startHeight, bodyText, iconURL, tabName){
 
-            this.windowNum = windows
             this.tabContainer = document.createElement("div")
             this.tabContainer.classList.add("Tab")
             this.tabContainer.classList.add("Tab-Container")
@@ -33,9 +32,6 @@
 
         }
 
-        getWindowsNum(){
-            return this.windowNum
-        }
     }
     
     
@@ -44,61 +40,28 @@
 
 
     function moveToFront(ev){
-        reOrderZWindows()
+        var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
         ev.target.closest(".Tab-Container").style.zIndex = windows.length
-        reOrderZWindows()
+        windows.forEach(element =>{
+            if(element.tabContainer.style.zIndex >= parseInt(oldzIndex)){
+                element.tabContainer.style.zIndex = element.tabContainer.style.zIndex - 1
+            }
+            element.tabContainer.classList.remove("Active-Tab")
+        })
 
         ev.target.closest(".Tab-Container").classList.add("Active-Tab")
+        
     }
 
 
-
-    function reOrderZWindows(){
-        console.log(windows)
-        var counter = 0
-        var skipped = false
-        var amountSkipped = 0
-        var numSkipped = 0
-
-        var placeholderArray = []
-
-        windows.forEach(element => {
-            element.tabContainer.classList.remove("Active-Tab")
-            placeholderArray.push(element.tabContainer.style.zIndex)
-        })
-
-        placeholderArray.sort()
-        placeholderArray.forEach(element =>{
-            if(counter < element){
-                skipped = true
-                amountSkipped = counter - element
-                numSkipped = element
-            }
-        })
-
-        windows.forEach(element => {
-            if(skipped){
-                if(element.tabContainer.style.zIndex >= numSkipped){
-                    element.tabContainer.style.zIndex -= amountSkipped
-                }else{
-                    element.tabContainer.style.zIndex -= 1
-                }
-
-            }else{
-                
-                element.tabContainer.style.zIndex -= 1
-            }
-        })
-
-
-        console.log(windows)
-    }
 
 
 
     function makeNewTab(ev){
-        reOrderZWindows()
-        const newTab = new Tab(windows.length, Math.floor(Math.random() * 100) + 1 + '%', Math.floor(Math.random() * 100) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "This is filler text", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
+        windows.forEach(element =>{
+            element.tabContainer.classList.remove("Active-Tab")
+        })
+        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "This is filler text", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
         windows.push(newTab)
     }
 
@@ -153,13 +116,30 @@
 
 
     function closeTab(ev){
-        var counter = 0;
-        while(windows[counter].tabContainer.style.zIndex != ev.target.closest(".Tab-Container").style.zindex){
+        var tabzIndex = ev.target.closest(".Tab-Container").style.zIndex;
+        var counter = 0
+        var foundCount = 0
+        windows.forEach(element =>{
+            
+            if(element.tabContainer.style.zIndex == ev.target.closest(".Tab-Container").style.zIndex){
+                foundCount = counter
+            }
             counter++
-        }
-        windows.splice(windows[counter], 1)
+        })
+        windows.splice(foundCount, 1)
+        windows.forEach(element => {
+            if(element.tabContainer.style.zIndex > tabzIndex){
+                element.tabContainer.style.zIndex -= 1;
+            }
+            
+            element.tabContainer.classList.remove("Active-Tab")
+            if(element.tabContainer.style.zIndex == windows.length - 1){
+                element.tabContainer.classList.add("Active-Tab")
+            }
 
+        })
 
         ev.target.closest(".Tab-Container").remove();
+        
     }
     
