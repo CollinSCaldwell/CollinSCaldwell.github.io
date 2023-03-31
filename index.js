@@ -3,7 +3,13 @@
     class Tab{
         constructor(zindex, startX, startY, startWidth, startHeight, bodyText, iconURL, tabName){
 
+
+
+
             this.tabContainer = document.createElement("div")
+
+            this.tabContainer.setAttribute('id', "Tab-Num-" + (zindex))
+
             this.tabContainer.classList.add("Tab")
             this.tabContainer.classList.add("Tab-Container")
             this.tabContainer.classList.add("Not-Selectable")
@@ -20,7 +26,7 @@
 
             this.tabContainer.innerHTML = tabHeader + closeButton + windowImg + windowName + tabBody + resizeTab
 
-            const temp = document.querySelector(".Main-Page")
+            const temp = document.getElementById("Main-Page")
             temp.appendChild(this.tabContainer)
             this.tabContainer.style.width = startWidth;
             this.tabContainer.style.height = startHeight;
@@ -28,8 +34,38 @@
             this.tabContainer.style.top = startY;
             this.tabContainer.style.zIndex = zindex;
 
-            this.tabContainer.classList.add("Active-Tab")
 
+
+
+
+            this.tabBar = document.createElement("div")
+
+            this.tabBar.setAttribute('id', "Tab-Bar-Num-" + (zindex))
+
+            this.tabBar.classList.add("Hot-bar-tab")
+
+            var hot_bar_img = '<img class="Hot-bar-tab bar-image" src="' + iconURL +'">            </img>'
+            var hot_bar_text = '<div class="Hot-bar-tab bar-text">' + tabName +  '</div>'
+
+            this.tabBar.innerHTML = hot_bar_img + hot_bar_text
+
+            const temp2 = document.getElementById("Hot-bar")
+            temp2.appendChild(this.tabBar)
+
+            this.makeTabActive()
+        }
+
+
+        makeTabActive(){
+            this.tabContainer.classList.add("Active-Tab")
+            this.tabBar.classList.add("Active-Tab")
+            this.tabBar.style.top = "-.2rem"
+        }
+
+        makeTabUnactive(){
+            this.tabContainer.classList.remove("Active-Tab")
+            this.tabBar.classList.remove("Active-Tab")
+            this.tabBar.style.top = "0rem"
         }
 
     }
@@ -38,18 +74,26 @@
 
     var windows = []
 
+    const hot_bar = document.getElementById("Hot-bar")
+    
+    offsetX = 0;
+    offsetY = 0;
+
 
     function moveToFront(ev){
         var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
-        ev.target.closest(".Tab-Container").style.zIndex = windows.length
+        const tabElement = ev.target.closest(".Tab-Container")
+        tabElement.style.zIndex = windows.length
         windows.forEach(element =>{
             if(parseInt(element.tabContainer.style.zIndex) >= parseInt(oldzIndex)){
                 element.tabContainer.style.zIndex = element.tabContainer.style.zIndex - 1
             }
-            element.tabContainer.classList.remove("Active-Tab")
+            element.makeTabUnactive()
         })
 
-        ev.target.closest(".Tab-Container").classList.add("Active-Tab")
+
+        windows[tabElement.id.substring(8)].makeTabActive()
+        console.log(tabElement.id.substring(8))
         
     }
 
@@ -59,21 +103,21 @@
 
     function makeNewTab(ev){
         windows.forEach(element =>{
-            element.tabContainer.classList.remove("Active-Tab")
+            element.makeTabUnactive()
         })
-        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "This is filler text", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
+        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, sed quidem! Reprehenderit harum hic est tempora dolores magni quae doloribus accusantium odio pariatur a ad reiciendis quidem saepe perspiciatis fugit error autem excepturi ducimus, possimus asperiores voluptas. Quibusdam tempora placeat aliquam, eius eos eaque labore ab corrupti vero incidunt dolor possimus sint voluptatibus doloribus porro quisquam nostrum reiciendis ea accusantium dignissimos fugiat odio fugit architecto. Enim doloribus culpa dicta cumque perferendis harum qui consequuntur dolores, quos nostrum at fuga odio quas similique, pariatur beatae commodi ipsa debitis quisquam aut aliquid sapiente iusto eveniet. Error dolorum vel sunt magni quod fugiat!", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
         windows.push(newTab)
     }
 
 
     
-    offsetX = 0;
-    offsetY = 0;
 
     function mousedown(ev){
-        offsetX = ev.clientX - ev.target.closest(".Tab-Container").offsetLeft;
-        offsetY = ev.clientY - ev.target.closest(".Tab-Container").offsetTop;
-        ev.target.closest(".Tab-Container").classList.add("dragging");
+        
+        const tabElement = ev.target.closest(".Tab-Container")
+        offsetX = ev.clientX - tabElement.offsetLeft;
+        offsetY = ev.clientY - tabElement.offsetTop;
+        tabElement.classList.add("dragging");
     }
 
     function mouseup(ev){
@@ -89,18 +133,20 @@
     }
 
 
+
+
     function mousemove(ev){
         var targetObject = document.querySelector(".dragging")
         if(targetObject != null){
-            newX = ev.clientX - offsetX;
+            newX = ev.clientX - offsetX ;
             newY = ev.clientY - offsetY;
 
             if(newX >= 0 && newX + targetObject.offsetWidth <= window.innerWidth){
-                targetObject.style.left = (ev.clientX- offsetX) + "px";
+                targetObject.style.left = (newX) + "px";
             }
-            if(newY >= 0 && newY + targetObject.offsetHeight <= window.innerHeight){
+            if(newY >= 0 && newY + targetObject.offsetHeight <= window.innerHeight - hot_bar.offsetHeight){
                 
-                targetObject.style.top = (ev.clientY- offsetY) + "px";
+                targetObject.style.top = (newY) + "px";
             }
         }
 
@@ -115,31 +161,39 @@
     }
 
 
+
+
     function closeTab(ev){
         var tabzIndex = ev.target.closest(".Tab-Container").style.zIndex;
+        const tabElement = ev.target.closest(".Tab-Container")
+        var tabID = parseInt(tabElement.id.substring(8))
+
+        windows[tabID].tabBar.remove()
+        windows[tabID].tabContainer.remove()
+
+        
+        windows.splice(tabID, 1)
+        
         var counter = 0
-        var foundCount = 0
-        windows.forEach(element =>{
-            
-            if(element.tabContainer.style.zIndex == ev.target.closest(".Tab-Container").style.zIndex){
-                foundCount = counter
-            }
-            counter++
-        })
-        windows.splice(foundCount, 1)
         windows.forEach(element => {
+
+            element.makeTabUnactive()
+            element.tabContainer.setAttribute("id", "Tab-Num-" + (counter))
+            console.log(counter)
+
             if(element.tabContainer.style.zIndex > tabzIndex){
                 element.tabContainer.style.zIndex -= 1;
             }
             
-            element.tabContainer.classList.remove("Active-Tab")
             if(element.tabContainer.style.zIndex == windows.length - 1){
-                element.tabContainer.classList.add("Active-Tab")
-            }
+                element.makeTabActive()
+            }   
+            counter++
+
 
         })
 
-        ev.target.closest(".Tab-Container").remove();
+
         
     }
     
