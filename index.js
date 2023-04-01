@@ -3,7 +3,7 @@
     class Tab{
         constructor(zindex, startX, startY, startWidth, startHeight, bodyText, iconURL, tabName){
 
-
+            this.zIndex = zindex
 
 
             this.tabContainer = document.createElement("div")
@@ -45,6 +45,10 @@
             this.tabBar.classList.add("Hot-bar-tab")
         
             this.tabBar.onmousedown = tabToWindow
+            this.tabBar.onmouseout = unhighlightWindow
+            this.tabBar.onmouseover = highlightWindow
+
+
 
             var hot_bar_img = '<img class="bar-image" src="' + iconURL +'">            </img>'
             var hot_bar_text = '<div class="bar-text">' + tabName +  '</div>'
@@ -87,10 +91,12 @@
 
     function tabToWindow(ev){
         const tabElement = ev.target.closest(".Hot-bar-tab")
-        windows.forEach(element =>{
-            element.makeTabUnactive()
-        })
-        windows[parseInt(tabElement.id.substring(12))].makeTabActive()
+
+        var input = parseInt(tabElement.id.substring(12))
+        var tabzIndex = windows[input].tabContainer.style.zIndex
+        windows[input].tabContainer.style.zIndex = windows.length
+        
+        makeWindowIndexFront(tabzIndex)
     }
 
 
@@ -102,16 +108,11 @@
         var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
         const tabElement = ev.target.closest(".Tab-Container")
         tabElement.style.zIndex = windows.length
-        windows.forEach(element =>{
-            if(parseInt(element.tabContainer.style.zIndex) >= parseInt(oldzIndex)){
-                element.tabContainer.style.zIndex = element.tabContainer.style.zIndex - 1
-            }
-            element.makeTabUnactive()
-        })
-
-
-        windows[parseInt(tabElement.id.substring(8))].makeTabActive()
-        console.log(tabElement.id.substring(8))
+        
+        
+        
+        
+        makeWindowIndexFront(oldzIndex)
         
     }
 
@@ -192,27 +193,60 @@
         
         windows.splice(tabID, 1)
         
+        makeWindowIndexFront(tabzIndex)
+
+
+        
+    }
+    
+
+    function makeWindowIndexFront(input){
+
+
         var counter = 0
         windows.forEach(element => {
 
             element.makeTabUnactive()
             element.tabContainer.setAttribute("id", "Tab-Num-" + (counter))
             element.tabBar.setAttribute("id", "Tab-Bar-Num-" + (counter))
-            console.log(counter)
 
-            if(element.tabContainer.style.zIndex > tabzIndex){
+
+            if(parseInt(element.tabContainer.style.zIndex) > input){
                 element.tabContainer.style.zIndex -= 1;
             }
             
-            if(element.tabContainer.style.zIndex == windows.length - 1){
+            if(parseInt(element.tabContainer.style.zIndex) == parseInt(windows.length) - 1){
                 element.makeTabActive()
             }   
             counter++
 
+            element.zIndex = element.tabContainer.style.zIndex
 
         })
-
-
-        
     }
-    
+
+
+
+    function highlightWindow(ev){
+        const tabElement = ev.target.closest(".Hot-bar-tab")
+        document.querySelector(".opacityScreen").classList.add("startOpacity")
+        var input = parseInt(tabElement.id.substring(12))
+
+        windows[input].tabContainer.style.zIndex = ""
+
+        windows[input].tabContainer.classList.add("hovering-tab-bar")
+    }
+
+
+    function unhighlightWindow(ev){
+        const tabElement = ev.target.closest(".Hot-bar-tab")
+
+
+        document.querySelector(".opacityScreen").classList.remove("startOpacity")
+
+        var input = parseInt(tabElement.id.substring(12))
+
+        windows[input].tabContainer.style.zIndex = windows[input].zIndex
+
+        windows[input].tabContainer.classList.remove("hovering-tab-bar")
+    }
