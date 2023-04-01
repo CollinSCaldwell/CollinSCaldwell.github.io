@@ -43,14 +43,18 @@
             this.tabBar.setAttribute('id', "Tab-Bar-Num-" + (zindex))
 
             this.tabBar.classList.add("Hot-bar-tab")
+        
+            this.tabBar.onmousedown = tabToWindow
 
-            var hot_bar_img = '<img class="Hot-bar-tab bar-image" src="' + iconURL +'">            </img>'
-            var hot_bar_text = '<div class="Hot-bar-tab bar-text">' + tabName +  '</div>'
+            var hot_bar_img = '<img class="bar-image" src="' + iconURL +'">            </img>'
+            var hot_bar_text = '<div class="bar-text">' + tabName +  '</div>'
 
             this.tabBar.innerHTML = hot_bar_img + hot_bar_text
 
             const temp2 = document.getElementById("Hot-bar")
             temp2.appendChild(this.tabBar)
+
+
 
             this.makeTabActive()
         }
@@ -59,13 +63,13 @@
         makeTabActive(){
             this.tabContainer.classList.add("Active-Tab")
             this.tabBar.classList.add("Active-Tab")
-            this.tabBar.style.top = "-.2rem"
+            this.tabBar.style.top = "-.25rem"
         }
 
         makeTabUnactive(){
             this.tabContainer.classList.remove("Active-Tab")
             this.tabBar.classList.remove("Active-Tab")
-            this.tabBar.style.top = "0rem"
+            this.tabBar.style.top = ""
         }
 
     }
@@ -80,6 +84,20 @@
     offsetY = 0;
 
 
+
+    function tabToWindow(ev){
+        const tabElement = ev.target.closest(".Hot-bar-tab")
+        windows.forEach(element =>{
+            element.makeTabUnactive()
+        })
+        windows[parseInt(tabElement.id.substring(12))].makeTabActive()
+    }
+
+
+
+
+
+
     function moveToFront(ev){
         var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
         const tabElement = ev.target.closest(".Tab-Container")
@@ -92,7 +110,7 @@
         })
 
 
-        windows[tabElement.id.substring(8)].makeTabActive()
+        windows[parseInt(tabElement.id.substring(8))].makeTabActive()
         console.log(tabElement.id.substring(8))
         
     }
@@ -179,6 +197,7 @@
 
             element.makeTabUnactive()
             element.tabContainer.setAttribute("id", "Tab-Num-" + (counter))
+            element.tabBar.setAttribute("id", "Tab-Bar-Num-" + (counter))
             console.log(counter)
 
             if(element.tabContainer.style.zIndex > tabzIndex){
