@@ -26,7 +26,7 @@
 
             this.tabContainer.innerHTML = tabHeader + closeButton + windowImg + windowName + tabBody + resizeTab
 
-            const temp = document.getElementById("Main-Page")
+            const temp = document.getElementById("Main-Window-Container")
             temp.appendChild(this.tabContainer)
             this.tabContainer.style.width = startWidth;
             this.tabContainer.style.height = startHeight;
