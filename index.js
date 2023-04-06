@@ -14,14 +14,14 @@
             this.tabContainer.classList.add("Tab-Container")
             this.tabContainer.classList.add("Not-Selectable")
 
-            this.tabContainer.onmousedown = moveToFront
+            this.tabContainer.onpointerdown = moveToFront
 
-            var tabHeader = '<div class="Tab Tab-Header" onmousedown="mousedown(event)" onmouseup="mouseup(event)"> '
-            var closeButton = '<button class="Tab Tab-Header Window-Close-Button" onmouseup="closeTab(event)">X</button> '
+            var tabHeader = '<div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> '
+            var closeButton = '<button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> '
             var windowImg = '<img src="' + iconURL + '" class = "Tab Tab-Header Window-Icon"> </img> '
             var windowName = '<div class = "Tab Tab-Header Window-Name">' + tabName + '</div> </div> '
             var tabBody = '<div class="Tab Tab-Body"> ' + bodyText + '</div> '
-            var resizeTab = '<div class="Tab Tab-Resize" onmousedown="mouseresizestart(event)" onmouseup="mouseresizeend(event)"> </div>'
+            var resizeTab = '<div class="Tab Tab-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>'
 
 
             this.tabContainer.innerHTML = tabHeader + closeButton + windowImg + windowName + tabBody + resizeTab
@@ -44,9 +44,9 @@
 
             this.tabBar.classList.add("Hot-bar-tab")
         
-            this.tabBar.onmousedown = tabToWindow
-            this.tabBar.onmouseout = unhighlightWindow
-            this.tabBar.onmouseover = highlightWindow
+            this.tabBar.onpointerdown =  tabToWindow
+            this.tabBar.onpointerleave = unhighlightWindow
+            this.tabBar.onpointerover = highlightWindow
 
 
 
@@ -132,7 +132,6 @@
     
 
     function mousedown(ev){
-        
         const tabElement = ev.target.closest(".Tab-Container")
         offsetX = ev.clientX - tabElement.offsetLeft;
         offsetY = ev.clientY - tabElement.offsetTop;
