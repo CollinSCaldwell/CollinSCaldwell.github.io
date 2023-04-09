@@ -249,3 +249,12 @@
 
         windows[input].tabContainer.classList.remove("hovering-tab-bar")
     }
+
+
+
+    window.addEventListener('touchmove', ev => {
+        
+          ev.preventDefault();
+          ev.stopImmediatePropagation();
+        
+      }, { passive: false });
