@@ -3,6 +3,7 @@
 
 
 <link rel="stylesheet" href="tab.css">
+<link rel="stylesheet" href="index.css">
 
 
 <title >Collin's Portfolio</title>
@@ -28,7 +29,30 @@
 
 
         <div id="Main-Window-Container">
-
+            <div style="left:5em; top:10em; width: 20em; height: 10em;" class="Tab Tab-Container Not-Selectable" id="Tab-Num-0" onpointerdown="moveToFront(event)">
+                <div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> 
+                    <button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> 
+                    <img src="https://www.svgrepo.com/show/510391/close.svg" class = "Tab Tab-Header Window-Icon"> </img>
+                    <div class = "Tab Tab-Header Window-Name">  tabName </div> 
+                </div> 
+                <div class="Tab Tab-Body File-Display">  
+                    
+                    
+                    <div class="Desktop-Icon">
+                        <img class="Desktop-Icon Desktop-Icon-Image" src="https://www.svgrepo.com/show/510391/close.svg">
+                        
+                    
+                        </img>
+                        <div class="Desktop-Icon Desktop-Text-Description">
+                            Hai hai hai hai hai :3!!!!!
+                        </div>
+                    </div>
+                
+                </div> 
+                <div class="Tab Tab-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>
+            </div>
+        
+        
         </div>
 
         <div id="Desktop">

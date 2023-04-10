@@ -16,6 +16,19 @@
 
             this.tabContainer.onpointerdown = moveToFront
 
+            // <div style="left:5em; top:10em; width: 20em; height: 10em;" class="Tab Tab-Container Not-Selectable" id="Tab-Num-0" onpointerdown="moveToFront(event)">
+            //     <div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> 
+            //         <button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> 
+            //         <img src="https://www.svgrepo.com/show/510391/close.svg" class = "Tab Tab-Header Window-Icon"> </img>
+            //         <div class = "Tab Tab-Header Window-Name">  tabName </div> 
+            //     </div> 
+            //     <div class="Tab Tab-Body">  bodyText  </div> 
+            //     <div class="Tab Tab-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>
+            // </div>
+
+
+
+
             var tabHeader = '<div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> '
             var closeButton = '<button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> '
             var windowImg = '<img src="' + iconURL + '" class = "Tab Tab-Header Window-Icon"> </img> '
@@ -124,7 +137,7 @@
         windows.forEach(element =>{
             element.makeTabUnactive()
         })
-        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, sed quidem! Reprehenderit harum hic est tempora dolores magni quae doloribus accusantium odio pariatur a ad reiciendis quidem saepe perspiciatis fugit error autem excepturi ducimus, possimus asperiores voluptas. Quibusdam tempora placeat aliquam, eius eos eaque labore ab corrupti vero incidunt dolor possimus sint voluptatibus doloribus porro quisquam nostrum reiciendis ea accusantium dignissimos fugiat odio fugit architecto. Enim doloribus culpa dicta cumque perferendis harum qui consequuntur dolores, quos nostrum at fuga odio quas similique, pariatur beatae commodi ipsa debitis quisquam aut aliquid sapiente iusto eveniet. Error dolorum vel sunt magni quod fugiat!", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
+        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "Lorem !", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
         windows.push(newTab)
     }
 

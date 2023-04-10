@@ -1,19 +1,4 @@
 
-body {
-  background-color: rgba(38, 42, 86, 1);
-  transition-duration: .5s;
-  font-size: 100%;
-}
-
-.Not-Selectable{
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
 
 
@@ -24,11 +9,26 @@ body {
   
 }
 
+
+
 .Active-Tab{
   animation-name: active-tab;
   animation-iteration-count: infinite;
   animation-duration: 2s;
 }
+
+
+
+
+
+
+/* 
+Windows CSS
+ */
+
+
+
+
 
 #Main-Window-Container{
   position:absolute;
@@ -75,11 +75,13 @@ body {
 
 
 .Tab-Body{
+  display:block;
   object-fit: contain;
   height: 100%;
   float:none;
   padding:.5rem;
   overflow:auto;
+  height: 100%;
   background-color: rgba(184, 98, 27, 1);
 }
 
@@ -104,7 +106,9 @@ body {
 
 
 
-
+/* 
+Hot Bar CSS
+ */
 
 
 
@@ -203,112 +207,3 @@ body {
 }
 
 
-
-.opacityScreen{
-  background-color: black;
-  position:fixed;
-  
-  top:0em;
-  left:0em;
-
-  width:100%;
-  height:100%;
-
-  transition-duration:1s;
-  transition-property: opacity, z-index;
-  
-  opacity: 0%;
-  z-index: -1;
-}
-
-
-.startOpacity{
-  transition-duration:1s;
-  transition-property: opacity, z-index;
-
-  opacity: 20%;
-  z-index: 500;
-}
-
-
-.hovering-tab-bar{
-  transition-duration:.5s;
-  transition-property: transform;
-  z-index: 600;
-  transform: translate(0, -1em);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Desktop{box-sizing: border-box;
- 
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  position: absolute;
-
-  
-  align-content: flex-start;
-  align-items: flex-start;
-
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 95%;
-  max-width: 100%;
-  max-height: 95%;
-  z-index: -1;
-}
-
-
-
-.Desktop-Icon{
-  padding: .5rem;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-  
-
-  height: 4em;
-  width: 4em;
-}
-
-.Desktop-Icon-Image{
-  padding: 0rem;
-  height: 4em;
-  width: 4em;
-  position:relative;
-  object-fit: contain;
-  overflow: none;
-}
-
-.Desktop-Text-Description{
-  padding: 0rem;
-  color:white;
-  font-size: 75%;
-  top: -.6rem;
-  height: 1rem;
-  width: 4rem;
-  position: relative;
-  overflow: hidden;
-}
