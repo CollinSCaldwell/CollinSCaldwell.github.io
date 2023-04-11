@@ -101,6 +101,7 @@ body {
   }
   
   .File-Display{
+    object-fit: contain;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

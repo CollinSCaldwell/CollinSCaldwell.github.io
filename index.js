@@ -4,76 +4,17 @@
         constructor(zindex, startX, startY, startWidth, startHeight, bodyText, iconURL, tabName){
 
             this.zIndex = zindex
+            this.startX = startX
+            this.startY = startY
+            this.startWidth = startWidth
+            this.startHeight = startHeight
+            this.bodyText = bodyText
+            this.iconURL = iconURL
+            this.tabName = tabName
+            this.tabContainer = null
+            this.tabBar = null
 
 
-            this.tabContainer = document.createElement("div")
-
-            this.tabContainer.setAttribute('id', "Tab-Num-" + (zindex))
-
-            this.tabContainer.classList.add("Tab")
-            this.tabContainer.classList.add("Tab-Container")
-            this.tabContainer.classList.add("Not-Selectable")
-
-            this.tabContainer.onpointerdown = moveToFront
-
-            // <div style="left:5em; top:10em; width: 20em; height: 10em;" class="Tab Tab-Container Not-Selectable" id="Tab-Num-0" onpointerdown="moveToFront(event)">
-            //     <div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> 
-            //         <button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> 
-            //         <img src="https://www.svgrepo.com/show/510391/close.svg" class = "Tab Tab-Header Window-Icon"> </img>
-            //         <div class = "Tab Tab-Header Window-Name">  tabName </div> 
-            //     </div> 
-            //     <div class="Tab Tab-Body">  bodyText  </div> 
-            //     <div class="Tab Tab-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>
-            // </div>
-
-
-
-
-            var tabHeader = '<div class="Tab Tab-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> '
-            var closeButton = '<button class="Tab Tab-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> '
-            var windowImg = '<img src="' + iconURL + '" class = "Tab Tab-Header Window-Icon"> </img> '
-            var windowName = '<div class = "Tab Tab-Header Window-Name">' + tabName + '</div> </div> '
-            var tabBody = '<div class="Tab Tab-Body"> ' + bodyText + '</div> '
-            var resizeTab = '<div class="Tab Tab-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>'
-
-
-            this.tabContainer.innerHTML = tabHeader + closeButton + windowImg + windowName + tabBody + resizeTab
-
-            const temp = document.getElementById("Main-Window-Container")
-            temp.appendChild(this.tabContainer)
-            this.tabContainer.style.width = startWidth;
-            this.tabContainer.style.height = startHeight;
-            this.tabContainer.style.left = startX;
-            this.tabContainer.style.top = startY;
-            this.tabContainer.style.zIndex = zindex;
-
-
-
-
-
-            this.tabBar = document.createElement("div")
-
-            this.tabBar.setAttribute('id', "Tab-Bar-Num-" + (zindex))
-
-            this.tabBar.classList.add("Hot-bar-tab")
-        
-            this.tabBar.onpointerdown =  tabToWindow
-            this.tabBar.onpointerleave = unhighlightWindow
-            this.tabBar.onpointerover = highlightWindow
-
-
-
-            var hot_bar_img = '<img class="bar-image" src="' + iconURL +'">            </img>'
-            var hot_bar_text = '<div class="bar-text">' + tabName +  '</div>'
-
-            this.tabBar.innerHTML = hot_bar_img + hot_bar_text
-
-            const temp2 = document.getElementById("Hot-bar")
-            temp2.appendChild(this.tabBar)
-
-
-
-            this.makeTabActive()
         }
 
 
@@ -88,6 +29,98 @@
             this.tabBar.classList.remove("Active-Tab")
             this.tabBar.style.top = ""
         }
+
+
+        createWindowAndTab(){
+            this.createWindow()
+            this.createTab()
+            
+            this.makeTabActive()
+        }
+
+        createWindow(img){
+
+
+            // <div style="left:5em; top:10em; width: 20em; height: 10em;" class="Window-Container Not-Selectable" id="Window-Num-0" onpointerdown="moveToFront(event)">
+            //     <div class="Window-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> 
+            //         <button class="Window-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> 
+            //         <img src="https://www.svgrepo.com/show/510391/close.svg" class = "Window-Header Window-Icon"> </img>
+            //         <div class = "Window-Header Window-Name">  tabName </div> 
+            //     </div> 
+            //     <div class="Window-Body">  bodyText  </div> 
+            //     <div class="Window-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>
+            // </div>
+
+
+            this.tabContainer = document.createElement("div")
+
+            this.tabContainer.setAttribute('id', "Tab-Num-" + (this.zindex))
+
+            this.tabContainer.classList.add("Window-Container")
+            this.tabContainer.classList.add("Not-Selectable")
+
+            this.tabContainer.onpointerdown = moveToFront
+
+
+
+            var tabHeader = '<div class="Window-Header" onpointerdown="mousedown(event)" onpointerup="mouseup(event)"> '
+            var closeButton = '<button class="Window-Header Window-Close-Button" onpointerup="closeTab(event)">X</button> '
+            var windowImg = '<img src="' + this.iconURL + '" class = "Window-Header Window-Icon"> </img> '
+            var windowName = '<div class = "Window-Header Window-Name">' + this.tabName + '</div> </div> '
+            if(img == false){
+            var tabBody = '<div class="Window-Body File-Display"> ' + this.bodyText + '</div> '
+            }else{
+                
+                var tabBody = '<img class="Window-Body" src="' + this.bodyText + '"></img> '
+            }
+            var resizeTab = '<div class="Window-Resize" onpointerdown="mouseresizestart(event)" onpointerup="mouseresizeend(event)"> </div>'
+
+
+            this.tabContainer.innerHTML = tabHeader + closeButton + windowImg + windowName + tabBody + resizeTab
+
+            document.getElementById("Main-Window-Container").appendChild(this.tabContainer)
+            this.tabContainer.style.width = this.startWidth;
+            this.tabContainer.style.height = this.startHeight;
+            this.tabContainer.style.left = this.startX;
+            this.tabContainer.style.top = this.startY;
+            this.tabContainer.style.zIndex = this.zindex;
+            
+        }
+
+
+        createTab(){
+
+
+            this.tabBar = document.createElement("div")
+
+            this.tabBar.setAttribute('id', "Tab-Bar-Num-" + (this.zindex))
+
+            this.tabBar.classList.add("Hot-bar-tab")
+        
+            this.tabBar.onpointerdown =  tabToWindow
+            this.tabBar.onpointerleave = unhighlightWindow
+            this.tabBar.onpointerover = highlightWindow
+
+
+
+            var hot_bar_img = '<img class="bar-image" src="' + this.iconURL +'">            </img>'
+            var hot_bar_text = '<div class="bar-text">' + this.tabName +  '</div>'
+
+            this.tabBar.innerHTML = hot_bar_img + hot_bar_text
+
+            document.getElementById("Hot-bar").appendChild(this.tabBar)
+        }
+
+
+
+        insertIntoBody(input){
+            var bodyDiv = this.tabContainer.querySelector(".Window-Body")
+            bodyDiv.insertAdjacentHTML(input)
+        }
+
+
+
+
 
     }
     
@@ -118,8 +151,8 @@
 
 
     function moveToFront(ev){
-        var oldzIndex = ev.target.closest(".Tab-Container").style.zIndex
-        const tabElement = ev.target.closest(".Tab-Container")
+        var oldzIndex = ev.target.closest(".Window-Container").style.zIndex
+        const tabElement = ev.target.closest(".Window-Container")
         tabElement.style.zIndex = windows.length
         
         
@@ -137,7 +170,10 @@
         windows.forEach(element =>{
             element.makeTabUnactive()
         })
-        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "Lorem !", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
+        const newTab = new Tab(windows.length, Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 70) + 1 + '%', Math.floor(Math.random() * 30) + 1 + "em", Math.floor(Math.random() * 30) + 1 + "em", "https://www.svgrepo.com/show/510391/close.svg", "https://www.svgrepo.com/show/510391/close.svg", "Hai hai hai :3")
+        newTab.createWindow(false)
+        newTab.createTab()
+        newTab.makeTabActive()
         windows.push(newTab)
     }
 
@@ -145,22 +181,22 @@
     
 
     function mousedown(ev){
-        const tabElement = ev.target.closest(".Tab-Container")
+        const tabElement = ev.target.closest(".Window-Container")
         offsetX = ev.clientX - tabElement.offsetLeft;
         offsetY = ev.clientY - tabElement.offsetTop;
         tabElement.classList.add("dragging");
     }
 
     function mouseup(ev){
-        ev.target.closest(".Tab-Container").classList.remove("dragging");
+        ev.target.closest(".Window-Container").classList.remove("dragging");
     }
 
 
     function mouseresizestart(ev){
-        ev.target.closest(".Tab-Container").classList.add("resizing");
+        ev.target.closest(".Window-Container").classList.add("resizing");
     }
     function mouseresizeend(ev){
-        ev.target.closest(".Tab-Container").classList.remove("resizing");
+        ev.target.closest(".Window-Container").classList.remove("resizing");
     }
 
 
@@ -195,8 +231,8 @@
 
 
     function closeTab(ev){
-        var tabzIndex = ev.target.closest(".Tab-Container").style.zIndex;
-        const tabElement = ev.target.closest(".Tab-Container")
+        var tabzIndex = ev.target.closest(".Window-Container").style.zIndex;
+        const tabElement = ev.target.closest(".Window-Container")
         var tabID = parseInt(tabElement.id.substring(8))
 
         windows[tabID].tabBar.remove()
